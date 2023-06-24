@@ -8,7 +8,6 @@ import {
   Hidden,
   IconButton,
   Stack,
-  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -27,7 +26,7 @@ import AccountPopover from "../AccountDetails";
 import { Link, useNavigate } from "react-router-dom";
 
 const SIDE_NAV_WIDTH = 0;
-const TOP_NAV_HEIGHT = 64;
+const TOP_NAV_HEIGHT = 74;
 
 const NavBar = (props) => {
   const { onNavOpen } = props;
@@ -132,16 +131,24 @@ const NavBar = (props) => {
                 alignItems: "center",
               }}
             >
-              <Tooltip title="Contacts">
+              <Link
+                to="/contact"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  color: "inherit",
+                }}
+              >
                 <IconButton>
                   <Badge badgeContent={4} color="success" variant="dot">
                     <EmailIcon fontSize="medium" />
                   </Badge>
                 </IconButton>
-              </Tooltip>
-              <Hidden smDown>
-                <Typography variant="subtitle1">Contact</Typography>
-              </Hidden>
+                <Hidden smDown>
+                  <Typography variant="subtitle1">Contact</Typography>
+                </Hidden>
+              </Link>
             </Box>
 
             <Box
@@ -152,14 +159,23 @@ const NavBar = (props) => {
                 alignItems: "center",
               }}
             >
-              <Tooltip>
+              <Link
+                to="/keyword-basket"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  color: "inherit",
+                }}
+              >
                 <IconButton>
                   <ShoppingCartIcon />
                 </IconButton>
-              </Tooltip>
-              <Hidden smDown>
-                <Typography variant="subtitle1">Keywords (0)</Typography>
-              </Hidden>
+
+                <Hidden smDown>
+                  <Typography variant="subtitle1">Keywords (0)</Typography>
+                </Hidden>
+              </Link>
             </Box>
             {true ? (
               <Button

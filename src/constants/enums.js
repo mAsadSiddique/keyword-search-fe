@@ -6,3 +6,8 @@ export const FIND_KEYWORD_ENUM = {
     EBAY: 'eBay',
     APPLE_STORE: 'Apple Store'
 }
+
+
+export const FORM_TO_OPEN_ENUM = {
+    SIGN_UP: 'SIGN_UP'
+}
