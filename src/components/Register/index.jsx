@@ -13,6 +13,10 @@ import {
 } from "@mui/material";
 import { VisibilityIcon, VisibilityOffIcon } from "src/utils/icons";
 import { Link } from "react-router-dom";
+import { useRegisterUser } from "src/features/user/registerUser";
+import { onError } from "src/utils/func";
+import { toast } from "react-toastify";
+import Logo from "src/utils/Logo";
 
 const initialState = {
   email: "",
@@ -22,20 +26,39 @@ const initialState = {
 
 const Register = (props) => {
   const { handleClose } = props;
+  const { mutate: registerUser, isLoading } = useRegisterUser();
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  console.log("etIsLoading: ", setIsLoading);
   const formik = useFormik({
     initialValues: initialState,
     validationSchema: sellerRegistrationValidationSchema,
     onSubmit: async (values, { resetForm }) => {
-      handleClose();
+      registerUser(values, {
+        onSuccess: (result) => {
+          toast.success(result?.message);
+          handleClose();
+          resetForm();
+        },
+        onError,
+      });
     },
   });
 
   return (
     <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "auto",
+          pb: 0.5,
+          mb: 2,
+          height: 32,
+          width: 32,
+        }}
+      >
+        <Logo />
+      </Box>
       <Typography
         textAlign="center"
         id="modal-modal-title"

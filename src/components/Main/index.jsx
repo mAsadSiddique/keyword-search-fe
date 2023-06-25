@@ -4,6 +4,7 @@ import KeywordNavbar from "../KeywordNavbar";
 import KeywordPlanner from "../KeywordPlanner";
 import HowToUseKeywordPlanner from "../HowToUseKeywordPlanner";
 import StaticData from "../StaticData";
+import Packages from "../Packages";
 
 const Main = () => {
   return (
@@ -51,6 +52,7 @@ const Main = () => {
           `}
         />
         <StaticData />
+        <Packages />
         <Box
           sx={{
             display: "flex",

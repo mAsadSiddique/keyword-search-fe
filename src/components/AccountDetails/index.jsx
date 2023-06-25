@@ -10,15 +10,20 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { handleUserLogin } from "src/store/AuthUser";
 
 const AccountPopover = (props) => {
   const { anchorEl, onClose, open } = props;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignOut = async () => {
+    dispatch(handleUserLogin(null));
     onClose();
     navigate("/");
   };
+
   return (
     <Popover
       anchorEl={anchorEl}
@@ -37,7 +42,11 @@ const AccountPopover = (props) => {
         </Typography>
         <Divider />
         <Stack>
-          <Link to={"/"} style={{ textDecoration: "none" }}>
+          <Link
+            to={"/user-profile"}
+            onClick={onClose}
+            style={{ textDecoration: "none" }}
+          >
             <Typography variant="overline" color="text.primary">
               Profile
             </Typography>

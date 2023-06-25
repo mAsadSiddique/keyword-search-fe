@@ -10,24 +10,29 @@ import {
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FORM_TO_OPEN_ENUM } from "src/constants/enums";
+import { useLogin } from "src/features/user/login";
 import usePopover from "src/hooks/usePopover";
+import { handleUserLogin } from "src/store/AuthUser";
 import { getUserActivity } from "src/store/UserActivitySlice";
 import FormsModal from "src/utils/Modal";
 import Spinner from "src/utils/Spinner";
+import { onError } from "src/utils/func";
 import { VisibilityIcon, VisibilityOffIcon } from "src/utils/icons";
 import * as Yup from "yup";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const { mutate: loginUser, isLoading } = useLogin();
   const dispatch = useDispatch();
   const openModal = usePopover();
-  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: "aliadnan.asghar@gmail.com",
       password: "",
     },
     validationSchema: Yup.object({
@@ -38,8 +43,15 @@ const LoginForm = () => {
       password: Yup.string().max(30).required("Password is required"),
     }),
     onSubmit: async (values) => {
-      setIsLoading(true);
-      setIsLoading(false);
+      loginUser(values, {
+        onSuccess: (result) => {
+          dispatch(handleUserLogin(result?.data));
+          localStorage.setItem("token", result.data.token);
+          toast.success(result?.message);
+          navigate("/");
+        },
+        onError,
+      });
     },
   });
 
@@ -48,7 +60,11 @@ const LoginForm = () => {
     dispatch(getUserActivity(FORM_TO_OPEN_ENUM.SIGN_UP));
   };
 
-  // console.log("values: ", formik.values);
+  const handleForgetPassword = () => {
+    openModal.handleOpen();
+    dispatch(getUserActivity(FORM_TO_OPEN_ENUM.FORGET));
+  };
+
   return (
     <>
       <Box
@@ -119,7 +135,10 @@ const LoginForm = () => {
                   }}
                 />
               </Stack>
-              <Link to={"/forget-password"} style={{ textDecoration: "none" }}>
+              <Link
+                onClick={handleForgetPassword}
+                style={{ textDecoration: "none" }}
+              >
                 <FormHelperText sx={{ textAlign: "right", mt: 1 }}>
                   Forget Password ?
                 </FormHelperText>

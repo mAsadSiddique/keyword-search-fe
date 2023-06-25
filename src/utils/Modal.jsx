@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import { userActivitySelector } from "src/store/UserActivitySlice";
 import { FORM_TO_OPEN_ENUM } from "src/constants/enums";
 import Register from "src/components/Register";
+import ForgetPassword from "src/components/ForgetPassword.js";
 
 const modalStyle = {
   position: "absolute",
-  top: { xs: "50%", md: "30%" },
+  top: { xs: "50%", md: "40%" },
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { xs: 350, sm: 500, md: 600 },
-//   height: { xs: "100%", sm: "auto" },
+  width: { xs: "95%", sm: 500, md: 600 },
   overflow: "auto",
   bgcolor: "background.paper",
   border: "1px solid #000",
@@ -26,6 +26,8 @@ const FormsModal = (props) => {
   let content = "";
   if (selectedForm === FORM_TO_OPEN_ENUM.SIGN_UP) {
     content = <Register handleClose={handleClose} />;
+  } else if (selectedForm === FORM_TO_OPEN_ENUM.FORGET) {
+    content = <ForgetPassword handleClose={handleClose} />;
   }
 
   return (
