@@ -4,5 +4,6 @@ export const ENDPOINT = {
     FORGET_PASSWORD: 'user/forgot/password',
     USER_PROFILE: 'user/profile',
     CHANGE_PASSWORD: "user/change/password",
-    SET_PASSWORD: 'user/set/password'
+    SET_PASSWORD: 'user/set/password',
+    KEYWORD_FETCH: 'keyword/planner/suggestion'
 }

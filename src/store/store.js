@@ -10,8 +10,8 @@ import storage from "redux-persist/lib/storage";
 
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
-import UserActivitySlice from "./UserActivitySlice";
 import AuthUser from "./AuthUser";
+import KeywordPlannerSlice from "./KeywordPlannerSlice";
 
 const persistToken = {
     key: 'token',
@@ -19,9 +19,14 @@ const persistToken = {
     storage
 }
 
+const persistKeyWords = {
+    key: 'keywords',
+    storage
+}
+
 const reducerPersist = combineReducers({
     user: persistReducer(persistToken, AuthUser),
-    userActivity: UserActivitySlice,
+    keywordPlanner: persistReducer(persistKeyWords, KeywordPlannerSlice)
 })
 
 export const store = configureStore({

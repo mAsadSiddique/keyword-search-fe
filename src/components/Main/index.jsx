@@ -13,7 +13,8 @@ const Main = () => {
         <Typography
           variant="h2"
           sx={{
-            my: { xs: 5, md: 18 },
+            my: { xs: 2, md: 5 },
+            mt: { xs: 5, md: 18 },
             textAlign: "center",
             fontSize: { xs: "24px", md: "40px" },
             fontWeight: { xs: "bold", md: 10 },
